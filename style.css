@@ -1,0 +1,53 @@
+body {
+    background-color: #EEF9BF;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: #75B79E;
+    font-weight: bold;
+    font-size: 56px;
+    margin-top: 40px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+    flex-direction: column;
+}
+
+.carta {
+    background-color: #A7E9AF;
+    height: 146px;
+    width: 117px;
+    border: 1px #99CEA8 solid;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 34px;
+    margin-bottom: 34px;
+}
+
+.carta img {
+    width: 100px;
+    height: 100px;
+}
+
+.jogo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 47px 116px;
+}
+
+@media (max-width: 635px){
+    h1 {
+        margin: 0 12px;
+        margin-top: 40px;
+    }
+}
