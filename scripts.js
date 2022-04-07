@@ -47,25 +47,26 @@ for (let i = 0; i < numeroCartas; i++) {
 let primeiraCarta;
 let segundaCarta;
 let contaJogadas = 0;
+let totalJogadas = 0;
 function jogada(carta) {
+
+    totalJogadas++;
 
     carta.classList.add("carta-virada");
     if (contaJogadas > 1) contaJogadas = 0;
-    console.log(contaJogadas)
 
     if (contaJogadas === 0) primeiraCarta = carta;
     else segundaCarta = carta;
     
-    console.log(primeiraCarta)
-    console.log(segundaCarta)
-
     controlaJogada();
+
+    controlaJogo();
+
     contaJogadas++;
 }
 
 function controlaJogada() {
     if (segundaCarta) {
-        console.log(primeiraCarta.innerHTML !== segundaCarta.innerHTML)
 
         if (primeiraCarta.innerHTML !== segundaCarta.innerHTML) {
             setTimeout(function () {
@@ -85,4 +86,11 @@ function controlaJogada() {
             segundaCarta = null;
         }
     }
+}
+
+function controlaJogo(){
+    let tudo = document.querySelectorAll(".card.carta-virada")
+    console.log(tudo.length)
+
+    if(tudo.length === cartasEmJogo.length) alert(`Você ganhou em ${totalJogadas} jogadas!`)
 }
