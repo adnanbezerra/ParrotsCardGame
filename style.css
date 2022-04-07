@@ -54,12 +54,20 @@ ul {
     transform: rotateY(180deg);
 }
 
-.card:hover .back-face {
+.carta-virada .back-face {
     transform: rotateY(0deg);
 }
 
-.card:hover .front-face {
+.carta-virada .front-face {
     transform: rotateY(-180deg);
+}
+
+.carta-volta .back-face {
+    transform: rotateY(-180deg);
+}
+
+.carta-volta .front-face {
+    transform: rotateY(0deg);
 }
 
 .jogo {

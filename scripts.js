@@ -15,13 +15,13 @@ let cartaBobRoss = "bobrossparrot", cartaExplody = "explodyparrot", cartaFiesta 
 let cartaRevertIt = "revertitparrot", cartaTriplets = "tripletsparrot", cartaUnicorn = "unicornparrot";
 const listaCartas = [cartaBobRoss, cartaExplody, cartaFiesta, cartaMetal, cartaRevertIt, cartaTriplets, cartaUnicorn];
 
-// Este bloco cria lista de cartas que irão para jogo e em seguida as embaralha
-function comparador() { 
-	return Math.random() - 0.5; 
+// A partir daqui, o foco é criar a mão de cartas, embaralhar, imprimir na tela etc
+function comparador() {
+    return Math.random() - 0.5;
 }
 const cartasEmJogo = [];
 let cartaAtual;
-for (let i = 0; i < numeroCartas/2; i++){
+for (let i = 0; i < numeroCartas / 2; i++) {
     cartaAtual = `<li class="card" onclick="jogada(this)">
     <div class="front-face face">
         <img src="arquivos-uteis/front.png" alt="">
@@ -33,7 +33,7 @@ for (let i = 0; i < numeroCartas/2; i++){
     cartasEmJogo.push(cartaAtual)
     cartasEmJogo.push(cartaAtual);
 }
-cartasEmJogo.sort(comparador); 
+cartasEmJogo.sort(comparador);
 
 // Finalmente, este bloco põe as cartas para jogo efetivamente, agora embaralhadas
 const cartas = document.querySelector("ul");
@@ -44,6 +44,45 @@ for (let i = 0; i < numeroCartas; i++) {
 
 // Função que recebe a carta escolhida pelo usuário. Caso ele tenha selecionado apenas uma, ela espera a segunda seleção.
 // Do contrário, ela aguarda uma segunda jogada e, em seguida, compara as duas
+let primeiraCarta;
+let segundaCarta;
+let contaJogadas = 0;
 function jogada(carta) {
 
+    carta.classList.add("carta-virada");
+    if (contaJogadas > 1) contaJogadas = 0;
+    console.log(contaJogadas)
+
+    if (contaJogadas === 0) primeiraCarta = carta;
+    else segundaCarta = carta;
+    
+    console.log(primeiraCarta)
+    console.log(segundaCarta)
+
+    controlaJogada();
+    contaJogadas++;
+}
+
+function controlaJogada() {
+    if (segundaCarta) {
+        console.log(primeiraCarta.innerHTML !== segundaCarta.innerHTML)
+
+        if (primeiraCarta.innerHTML !== segundaCarta.innerHTML) {
+            setTimeout(function () {
+                primeiraCarta.classList.add("carta-volta");
+                segundaCarta.classList.add("carta-volta");
+                primeiraCarta.classList.remove("carta-virada");
+                segundaCarta.classList.remove("carta-virada");
+
+                primeiraCarta.classList.remove("carta-volta");
+                segundaCarta.classList.remove("carta-volta");
+                primeiraCarta = null;
+                segundaCarta = null;
+            }, 1000)
+
+        } else {
+            primeiraCarta = null;
+            segundaCarta = null;
+        }
+    }
 }
