@@ -18,24 +18,48 @@ h1 {
     flex-direction: column;
 }
 
-.carta {
-    background-color: #A7E9AF;
-    height: 146px;
-    width: 117px;
-    border: 1px #99CEA8 solid;
-    border-radius: 5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+.card {
+    width: 200px;
+    height: 250px;
+    position: relative;
     margin-right: 34px;
     margin-bottom: 34px;
 }
 
-.carta img {
+ul {
+    list-style-type: none;
+}
+
+.card img {
     width: 100px;
     height: 100px;
+}
+
+.face {
+    width: 100%;
+    height: 100%;
+    background-color: #A7E9AF;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: all .5s;
+    transform-style: preserve-3d;
+}
+
+.back-face {
+    transform: rotateY(180deg);
+}
+
+.card:hover .back-face {
+    transform: rotateY(0deg);
+}
+
+.card:hover .front-face {
+    transform: rotateY(-180deg);
 }
 
 .jogo {
@@ -45,7 +69,7 @@ h1 {
     margin: 47px 116px;
 }
 
-@media (max-width: 635px){
+@media (max-width: 635px) {
     h1 {
         margin: 0 12px;
         margin-top: 40px;
