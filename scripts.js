@@ -4,7 +4,7 @@ let numeroCartas;
 // ou maior que 14 ou menor que 4
 let invalid = true;
 do {
-    numeroCartas = Number(prompt("Com quantas cartas você quer jogar?"))
+    numeroCartas = Number(prompt("Com quantas cartas você quer jogar? 4 a 14"))
 
     if (numeroCartas % 2 === 0 && 4 <= numeroCartas && numeroCartas <= 14) invalid = false;
 } while (invalid);
@@ -52,6 +52,8 @@ function jogada(carta) {
 
     totalJogadas++;
 
+    if(primeiraCarta) {if(carta === primeiraCarta) return;}
+
     carta.classList.add("carta-virada");
     if (contaJogadas > 1) contaJogadas = 0;
 
@@ -90,7 +92,6 @@ function controlaJogada() {
 
 function controlaJogo(){
     let tudo = document.querySelectorAll(".card.carta-virada")
-    console.log(tudo.length)
-
+    
     if(tudo.length === cartasEmJogo.length) alert(`Você ganhou em ${totalJogadas} jogadas!`)
 }
