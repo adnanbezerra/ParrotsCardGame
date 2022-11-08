@@ -31,10 +31,10 @@ function getCarta(gifImg) {
     return `
     <li class="card" onclick="jogada(this)">
         <div class="front-face face">
-            <img src="arquivos-uteis/front.png" alt="">
+            <img src="gifs/front.png" alt="">
         </div>
         <div class="back-face face"> 
-            <img src="arquivos-uteis/${gifImg}.gif" alt="">
+            <img src="gifs/${gifImg}.gif" alt="">
         </div>
     </li>
     `;
