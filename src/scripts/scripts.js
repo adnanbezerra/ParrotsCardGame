@@ -1,16 +1,15 @@
 let numeroCartas;
 
-// Aqui, um laço do... while que extrai a quantidade de cartas, não permitindo que o jogador comece o jogo caso o número seja ímpar
-// ou maior que 14 ou menor que 4
+// Laço do...while que só permite a entrada de números pares maiores ou iguais a 4 e menores ou iguais a 14
 let invalid = true;
 do {
     numeroCartas = Number(prompt("Com quantas cartas você quer jogar? 4 a 14"))
 
     if (numeroCartas % 2 === 0 && 4 <= numeroCartas && numeroCartas <= 14) invalid = false;
+
 } while (invalid);
 
-// Esse bloco declara as cartas possíveis de serem jogadas
-// Dividi em duas linhas para ficar mais aesthetical, declarei variáveis para ser mais legível
+// As cartas possíveis de serem jogadas
 let cartaBobRoss = "bobrossparrot", cartaExplody = "explodyparrot", cartaFiesta = "fiestaparrot", cartaMetal = "metalparrot";
 let cartaRevertIt = "revertitparrot", cartaTriplets = "tripletsparrot", cartaUnicorn = "unicornparrot";
 const listaCartas = [cartaBobRoss, cartaExplody, cartaFiesta, cartaMetal, cartaRevertIt, cartaTriplets, cartaUnicorn];
@@ -22,20 +21,26 @@ function comparador() {
 const cartasEmJogo = [];
 let cartaAtual;
 for (let i = 0; i < numeroCartas / 2; i++) {
-    cartaAtual = `<li class="card" onclick="jogada(this)">
-    <div class="front-face face">
-        <img src="arquivos-uteis/front.png" alt="">
-    </div>
-    <div class="back-face face"> 
-        <img src="arquivos-uteis/${listaCartas[i]}.gif" alt="">
-    </div>
-    </li>`;
+    cartaAtual = getCarta(listaCartas[i]);
     cartasEmJogo.push(cartaAtual)
     cartasEmJogo.push(cartaAtual);
 }
 cartasEmJogo.sort(comparador);
 
-// Finalmente, este bloco põe as cartas para jogo efetivamente, agora embaralhadas
+function getCarta(gifImg) {
+    return `
+    <li class="card" onclick="jogada(this)">
+        <div class="front-face face">
+            <img src="arquivos-uteis/front.png" alt="">
+        </div>
+        <div class="back-face face"> 
+            <img src="arquivos-uteis/${gifImg}.gif" alt="">
+        </div>
+    </li>
+    `;
+}
+
+// Este bloco põe as cartas em jogo
 const cartas = document.querySelector("ul");
 let contador = 0;
 for (let i = 0; i < numeroCartas; i++) {
@@ -49,17 +54,16 @@ let segundaCarta;
 let contaJogadas = 0;
 let totalJogadas = 0;
 function jogada(carta) {
-
     totalJogadas++;
 
-    if(primeiraCarta) {if(carta === primeiraCarta) return;}
+    if (primeiraCarta) { if (carta === primeiraCarta) return; }
 
     carta.classList.add("carta-virada");
     if (contaJogadas > 1) contaJogadas = 0;
 
     if (contaJogadas === 0) primeiraCarta = carta;
     else segundaCarta = carta;
-    
+
     controlaJogada();
 
     controlaJogo();
@@ -69,18 +73,9 @@ function jogada(carta) {
 
 function controlaJogada() {
     if (segundaCarta) {
-
         if (primeiraCarta.innerHTML !== segundaCarta.innerHTML) {
             setTimeout(function () {
-                primeiraCarta.classList.add("carta-volta");
-                segundaCarta.classList.add("carta-volta");
-                primeiraCarta.classList.remove("carta-virada");
-                segundaCarta.classList.remove("carta-virada");
-
-                primeiraCarta.classList.remove("carta-volta");
-                segundaCarta.classList.remove("carta-volta");
-                primeiraCarta = null;
-                segundaCarta = null;
+                movimentaCartas();
             }, 1000)
 
         } else {
@@ -90,8 +85,20 @@ function controlaJogada() {
     }
 }
 
-function controlaJogo(){
+function movimentaCartas() {
+    primeiraCarta.classList.add("carta-volta");
+    segundaCarta.classList.add("carta-volta");
+    primeiraCarta.classList.remove("carta-virada");
+    segundaCarta.classList.remove("carta-virada");
+
+    primeiraCarta.classList.remove("carta-volta");
+    segundaCarta.classList.remove("carta-volta");
+    primeiraCarta = null;
+    segundaCarta = null;
+}
+
+function controlaJogo() {
     let tudo = document.querySelectorAll(".card.carta-virada")
-    
-    if(tudo.length === cartasEmJogo.length) alert(`Você ganhou em ${totalJogadas} jogadas!`)
+
+    if (tudo.length === cartasEmJogo.length) alert(`Você ganhou em ${totalJogadas} jogadas!`)
 }
